@@ -32,4 +32,4 @@ matrix = [
 ]
 
 det = jordan(matrix)
-print(f'Determinant: {det}')
+# print(f'Determinant: {det}')

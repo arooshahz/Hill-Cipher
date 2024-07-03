@@ -1,3 +1,6 @@
+from jordan import jordan
+
+
 def char_to_num(char):
     return ord(char) - ord('A')
 
@@ -51,8 +54,7 @@ def matrix_inverse(matrix):
     a, b = matrix[0][0], matrix[0][1]
     c, d = matrix[1][0], matrix[1][1]
 
-    determinant = (a * d - b * c) % 26
-    # determinant=jordan(matrix)
+    determinant = int(jordan(matrix))
     det_inv = pow(determinant, -1, 26)  # Calculate modular multiplicative inverse
 
     adjugate = [[d, -b], [-c, a]]
@@ -86,13 +88,18 @@ def hill_cipher_decrypt(text, key_matrix):
         cipher_matrices.append(cipher_matrix)
 
     cipher_text = matrices_to_text(cipher_matrices)
+
     return cipher_text
 
 
-text = "HELP"
+text = "hello"
 key_matrix = [[3, 3], [2, 5]]
+n = len(text)
 
 cipher_text = hill_cipher_encrypt(text, key_matrix)
 print("encoded text : ", cipher_text)
+
 cipher_text = hill_cipher_decrypt(cipher_text, key_matrix)
+if cipher_text[-1] == 'X' and n % 2 == 1:
+    cipher_text = cipher_text[:-1]
 print("decoded text : ", cipher_text)

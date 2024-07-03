@@ -47,6 +47,22 @@ def mod_26(matrix):
     return [[element % 26] for row in matrix for element in row]
 
 
+def matrix_inverse(matrix):
+    a, b = matrix[0][0], matrix[0][1]
+    c, d = matrix[1][0], matrix[1][1]
+
+    determinant = (a * d - b * c) % 26
+    # determinant=jordan(matrix)
+    det_inv = pow(determinant, -1, 26)  # Calculate modular multiplicative inverse
+
+    adjugate = [[d, -b], [-c, a]]
+
+    inverse_matrix = [[adjugate[0][0] * det_inv % 26, adjugate[0][1] * det_inv % 26],
+                      [adjugate[1][0] * det_inv % 26, adjugate[1][1] * det_inv % 26]]
+
+    return inverse_matrix
+
+
 def hill_cipher_encrypt(text, key_matrix):
     matrices = text_to_matrices(text)
 
@@ -60,10 +76,23 @@ def hill_cipher_encrypt(text, key_matrix):
     return cipher_text
 
 
+def hill_cipher_decrypt(text, key_matrix):
+    matrices = text_to_matrices(text)
+    key_matrix_inv = matrix_inverse(key_matrix)
+    cipher_matrices = []
+    for text_matrix in matrices:
+        product = multiply_matrices(key_matrix_inv, text_matrix)
+        cipher_matrix = mod_26(product)
+        cipher_matrices.append(cipher_matrix)
+
+    cipher_text = matrices_to_text(cipher_matrices)
+    return cipher_text
+
 
 text = "HELP"
 key_matrix = [[3, 3], [2, 5]]
 
 cipher_text = hill_cipher_encrypt(text, key_matrix)
 print("encoded text : ", cipher_text)
-
+cipher_text = hill_cipher_decrypt(cipher_text, key_matrix)
+print("decoded text : ", cipher_text)

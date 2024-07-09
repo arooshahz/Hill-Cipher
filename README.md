@@ -30,10 +30,12 @@ The Hill cipher is an encryption technique that uses linear algebra principles. 
 
 ### Encoding
 The encoding process involves converting a plaintext message into a ciphertext by multiplying the plaintext vector with a key matrix.
+
 ![image](https://github.com/arooshahz/Hill-Cipher/assets/136841773/572f1994-15d0-4a22-b1e7-101da68a4dbf)
 
 ### Decoding
 The decoding process involves reversing the encoding by multiplying the ciphertext vector with the inverse of the key matrix
 The Jordan method is used to calculate the determinant in the Hill cipher due to its efficiency and accuracy compared to the other two methods
+
 ![image](https://github.com/arooshahz/Hill-Cipher/assets/136841773/6634634d-5465-44c9-bd5c-36cea35fd3ca)
 
